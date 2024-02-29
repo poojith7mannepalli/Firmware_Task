@@ -85,12 +85,12 @@ void TransmitBack(void) {
 
 Setup and Running
 Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter. Ensure proper connection of UART1 pins for RX and TX. To communicate between MCU to PC i planned on using USB to TTL Converter.
+![20240228_191234](https://github.com/poojith7mannepalli/Firmware_Task/assets/66217036/53cb2df6-9cef-483f-bc9a-21a70cb97a40)
+![20240228_191311](https://github.com/poojith7mannepalli/Firmware_Task/assets/66217036/9d8f5a88-cea1-4d77-a3c4-e5b46e24b999)
 
 Software Requirements: This project requires STM32CubeIDE for compiling and flashing the firmware onto the STM32G0B1RE.I made sure that i had set the BaudRate to 2400.
 
 Flashing the Firmware: Open the project in STM32CubeIDE, compile it, and flash it onto the MCU.
 
-Running the PC Application: Use a serial terminal or a custom PC application to send the predefined text to the MCU and receive the transmitted data back.
+Running the PC Application: Used python in VsCode
 
-Contributing
-Contributions to this project are welcome. Please ensure to follow the coding standards and submit pull requests for any enhancements, bug fixes, or feature additions.
