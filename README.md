@@ -117,7 +117,7 @@ text = """Finance Minister Arun Jaitley... currently."""
 This multiline string is the data you intend to send over the serial connection. It appears to be a snippet of a news article.
 ```
 ## Opening the Serial Connection
-````python
+```python
 
 ser = serial.Serial(serial_port, baud_rate, timeout=1)
 ```
