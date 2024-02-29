@@ -84,9 +84,9 @@ void TransmitBack(void) {
 ```
 
 Setup and Running
-Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter. Ensure proper connection of UART1 pins for RX and TX.
+Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter. Ensure proper connection of UART1 pins for RX and TX. To communicate between MCU to PC i planned on using USB to TTL Converter.
 
-Software Requirements: This project requires STM32CubeIDE for compiling and flashing the firmware onto the STM32G0B1RE.
+Software Requirements: This project requires STM32CubeIDE for compiling and flashing the firmware onto the STM32G0B1RE.I made sure that i had set the BaudRate to 2400.
 
 Flashing the Firmware: Open the project in STM32CubeIDE, compile it, and flash it onto the MCU.
 
