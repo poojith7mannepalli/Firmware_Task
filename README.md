@@ -89,7 +89,7 @@ Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter
 ![20240228_191311](https://github.com/poojith7mannepalli/Firmware_Task/assets/66217036/9d8f5a88-cea1-4d77-a3c4-e5b46e24b999)
 
 Software Requirements: This project requires STM32CubeIDE for compiling and flashing the firmware onto the STM32G0B1RE.I made sure that i had set the BaudRate to 2400.
-
+#### To view the project code navigate to [Core->src->main.c] in main.c you can view the source code and in the Firmware_Task.py you can find the code for PC realted sending and receiving data
 Flashing the Firmware: Open the project in STM32CubeIDE, compile it, and flash it onto the MCU.
 
 Running the PC Application: Used python in VsCode
