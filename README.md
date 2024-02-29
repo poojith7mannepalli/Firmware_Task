@@ -1,14 +1,14 @@
 # FIRMWARE TASK
-###PC to MCU and MCU to PC UART Data Transmission with STM32G0B1RE
-##Overview
+### PC to MCU and MCU to PC UART Data Transmission with STM32G0B1RE
+## Overview
 This project demonstrates a firmware implementation for transmitting a predefined text from a PC to an MCU ( STM32G0B1RE) via UART, storing it in EEPROM emulation, and then transmitting it back from the MCU to the PC. The firmware measures the real-time data transmission speed in bits per second, showcasing the efficiency and reliability of UART communication for embedded systems.
 
-###Features
+### Features
 UART Communication: Utilizes UART protocol for full-duplex communication between the PC and the MCU.
 EEPROM Emulation: Employs the MCU's flash memory to emulate EEPROM storage, allowing for persistent storage of received data.
 Data Transmission Speed Measurement: Calculates the actual transmission speed based on the number of bits transmitted over the UART bus per second, providing insights into the communication efficiency.
 
-###How It Works
+### How It Works
 
 Initialization: The system initializes all peripherals, including UART1 for PC communication . GPIOs are also configured, particularly for indicating operation status through an LED.
 
@@ -30,7 +30,7 @@ void EEPROM_WRITE(uint32_t address, uint64_t data) {
 
     HAL_FLASH_Lock();
 }
-
+```
 EEPROM_Read(uint32_t address, uint8_t *data, uint32_t length): Reads a block of data from the emulated EEPROM storage, starting from the specified address.
 ```c
 void EEPROM_Read(uint32_t address, uint8_t *data, uint32_t length) {
@@ -41,6 +41,7 @@ void EEPROM_Read(uint32_t address, uint8_t *data, uint32_t length) {
         memcpy(&data[i], &tempData, bytesToCopy);
     }
 }
+```
 BufferAndWriteEEPROM(uint8_t data): Buffers incoming data bytes until a full double word is accumulated, then writes it to the emulated EEPROM storage.
 ```c
 void BufferAndWriteEEPROM(uint8_t data) {
@@ -51,7 +52,7 @@ void BufferAndWriteEEPROM(uint8_t data) {
         DoubleWordBufferIndex = 0;
     }
 }
-
+```
 HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart): Callback function for UART receive complete interrupt. It handles the reception of data bytes from the PC, buffers them, and triggers EEPROM storage or data transmission back to the PC.
 ```c
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
@@ -72,7 +73,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
         }
     }
 }
-
+```
 TransmitBack(void): Retrieves the stored data from EEPROM emulation and transmits it back to the PC via UART.
 ```c
 void TransmitBack(void) {
@@ -80,7 +81,7 @@ void TransmitBack(void) {
     EEPROM_Read(0, dataToTransmit, RX_BUFFER_SIZE);
     HAL_UART_Transmit(&huart1, dataToTransmit, RX_BUFFER_SIZE, HAL_MAX_DELAY);
 }
-
+```
 
 Setup and Running
 Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter. Ensure proper connection of UART1 pins for RX and TX.
