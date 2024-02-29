@@ -1,0 +1,3 @@
+../Core/Src/EEPROM.c:14:18:BSP_GetBankAndPageNumber	4
+../Core/Src/EEPROM.c:34:6:BSP_WriteFlash	2
+../Core/Src/EEPROM.c:46:6:BSP_ReadInternalFlash	2
