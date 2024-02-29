@@ -89,8 +89,91 @@ Hardware Setup: Connect the STM32G0B1RE to your PC using a UART to USB converter
 ![20240228_191311](https://github.com/poojith7mannepalli/Firmware_Task/assets/66217036/9d8f5a88-cea1-4d77-a3c4-e5b46e24b999)
 
 Software Requirements: This project requires STM32CubeIDE for compiling and flashing the firmware onto the STM32G0B1RE.I made sure that i had set the BaudRate to 2400.
-#### To view the project code navigate to [Core->src->main.c] in main.c you can view the source code and in the Firmware_Task.py you can find the code for PC realted sending and receiving data
+#### To view the project code navigate to [Core->src->main.c] in main.c you can view the source code and in the [PC_REALTED->Firmware_Task.py] you can find the code for PC realted sending and receiving data
 Flashing the Firmware: Open the project in STM32CubeIDE, compile it, and flash it onto the MCU.
 
 Running the PC Application: Used python in VsCode
+### Firmware_Task PC related Code
+## Importing Libraries
+```python
+
+import serial
+import time
+```
+These lines import the necessary Python libraries. The serial library is used for serial communication (you'll need pySerial installed in your environment), and the time library is used for handling time-related tasks, such as adding delays.
+
+## Setting Up Serial Connection
+```python
+
+serial_port = '/dev/ttyUSB0'
+baud_rate = 2400
+```
+Here, you're specifying the serial port (/dev/ttyUSB0, common for Linux systems) and the baud rate (2400) for the serial communication. These values should be adjusted based on your actual hardware setup and the requirements of the device you're communicating with.
+
+## The Text Variable
+```python
+
+text = """Finance Minister Arun Jaitley... currently."""
+This multiline string is the data you intend to send over the serial connection. It appears to be a snippet of a news article.
+```
+## Opening the Serial Connection
+````python
+
+ser = serial.Serial(serial_port, baud_rate, timeout=1)
+```
+This line opens the serial port with the specified baud rate and a read timeout of 1 second. A timeout is useful to avoid blocking the code indefinitely if no data is received.
+
+## The send_data Function
+```python
+
+def send_data(text):
+    start_time = time.time()
+    ser.write(text.encode())
+    ser.flush()
+    bytes_sent = len(text)
+    end_time = time.time()
+    calculate_speed(bytes_sent, start_time, end_time, "Sending")
+```
+This function sends the provided text over the serial port. It measures the time taken to send the data and calculates the sending speed in bits per second (bps). The flush() method ensures that all written data is sent out immediately.
+
+## The receive_data Function
+```python
+
+def receive_data(expected_bytes):
+    received_data = b''
+    start_time = time.time()
+    while len(received_data) < expected_bytes:
+        if ser.in_waiting > 0:
+            received_data += ser.read(ser.in_waiting)
+    end_time = time.time()
+    calculate_speed(len(received_data), start_time, end_time, "Receiving")
+    return received_data.decode()
+```
+This function waits to receive a specified number of bytes over the serial port, measuring the time taken and calculating the receiving speed in bps. It continues reading data until the expected number of bytes is received or the timeout occurs. The received data is then decoded from bytes to a string before being returned.
+
+## The calculate_speed Function
+```python
+
+def calculate_speed(bytes_count, start_time, end_time, operation):
+    time_elapsed = end_time - start_time
+    speed_bps = (bytes_count * 8) / time_elapsed
+    print(f"{operation} speed: {speed_bps:.2f} bps")
+```
+This utility function calculates and prints the speed of the operation (sending or receiving) in bps.
+
+## Executing the Communication
+```python
+
+send_data(text)
+
+time.sleep(10)
+
+print("Starting to receive data...")
+received_text = receive_data(1000)
+print("Received Text:", received_text[:1000] + "...")
+
+ser.close()
+```
+This part of the code sends the text, waits for 10 seconds (presumably to allow the receiving side to process and start sending data back), and then attempts to receive up to 1000 bytes of data. Finally, it closes the serial connection.
+
 
